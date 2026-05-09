@@ -37,7 +37,13 @@ git submodule add git@github.com:Yuoek/qwerty-learner.git
 ```
 
 **主项目初始化并更新子模块**
+1.
 ```bash
+ git submodule update --init --recursive
+```
+
+```bash
+
 git init
 ```
 ```bash
