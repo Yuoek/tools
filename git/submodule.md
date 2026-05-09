@@ -5,6 +5,7 @@
 * [git command](#git-command)
 * [git submodule](#git-submodule)
 * [git 切换上一次 commit](#git-切换上一次-commit)
+* [submodule 递归 push ](#submodule-递归-push-)
 
 <!-- mtoc-end -->
 
@@ -144,4 +145,23 @@ git push origin main
 cd tools
 git fsck --lost-found
 ls .git/lost-found/other/
+```
+
+
+## submodule 递归 push 
+子模块操作
+```bash
+git submodule foreach '
+  git checkout main || git checkout master || echo "子模块 $name 无 main/master 分支，跳过"
+  git add .
+  git commit -m "更新子模块 $name: 提交所有本地修改" || echo "子模块 $name 无修改，跳过提交"
+  git push || echo "子模块 $name 推送失败，请手动处理"
+'
+```
+
+主项目操作
+```bash
+git add .
+git commit -m "更新所有子模块引用"
+git push origin main
 ```
